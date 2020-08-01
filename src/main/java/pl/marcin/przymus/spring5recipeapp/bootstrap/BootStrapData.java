@@ -1,0 +1,72 @@
+package pl.marcin.przymus.spring5recipeapp.bootstrap;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import pl.marcin.przymus.spring5recipeapp.domain.*;
+import pl.marcin.przymus.spring5recipeapp.repositories.*;
+
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Slf4j
+@Component
+public class BootStrapData implements ApplicationListener<ContextRefreshedEvent> {
+    private final CategoryRepository categoryRepository;
+    private final RecipeRepository recipeRepository;
+    private final UnitOfMeasureRepository unitOfMeasureRepository;
+
+    public BootStrapData(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+        this.categoryRepository = categoryRepository;
+        this.recipeRepository = recipeRepository;
+        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    }
+
+    @Override
+    @Transactional
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        Set<Category> categories = new HashSet<>();
+        log.debug("creating mexican category");
+        Category mexicanCategory = categoryRepository.findByDescription("Mexican").orElseThrow(IllegalArgumentException::new);
+        categories.add(mexicanCategory);
+        Set<Ingredient> ingredients = new HashSet<>();
+        log.debug("Creating guacamole");
+        Recipe guacamole = new Recipe();
+        Set<Recipe> recipes = new HashSet<>();
+        recipes.add(guacamole);
+        mexicanCategory.setRecipes(recipes);
+        guacamole.setCategories(categories);
+        guacamole.setDescription("Perfect Guacamole");
+        guacamole.setCookTime(0);
+        guacamole.setPrepTime(10);
+        guacamole.setDifficulty(Difficulty.EASY);
+        guacamole.setServings(3);
+        log.debug("Adding note do guacamole");
+        Notes notes = new Notes();
+        notes.setRecipeNotes("The best guacamole keeps it simple: just ripe avocados, salt, a squeeze of lime, onions, chiles, cilantro, and some chopped tomato. Serve it as a dip at your next party or spoon it on top of tacos for an easy dinner upgrade. ");
+        guacamole.setNotes(notes);
+        log.debug("Creating avocado ingredient");
+        Ingredient avocado = new Ingredient();
+        avocado.setDescription("avocado");
+        avocado.setRecipe(guacamole);
+        avocado.setAmount(BigDecimal.valueOf(2));
+        avocado.setUnitOfMeasure(unitOfMeasureRepository.findByDescription("Piece").orElseThrow(IllegalArgumentException::new));
+        avocado.setDescription("ripe");
+        ingredients.add(avocado);
+        log.debug("Creating salt ingredient");
+        Ingredient salt = new Ingredient();
+        salt.setDescription("salt");
+        salt.setRecipe(guacamole);
+        salt.setAmount(BigDecimal.valueOf(0.25));
+        salt.setUnitOfMeasure(unitOfMeasureRepository.findByDescription("Teaspoon").orElseThrow(IllegalArgumentException::new));
+        ingredients.add(salt);
+        log.debug("Adding ingredients to guacamole");
+        guacamole.setIngredients(ingredients);
+        recipeRepository.save(guacamole);
+        categoryRepository.save(mexicanCategory);
+    }
+}

@@ -1,0 +1,5 @@
+pl/marcin/przymus/spring5recipeapp/controllers/RecipesControllerTest.class
+pl/marcin/przymus/spring5recipeapp/repositories/UnitOfMeasureRepositoryIT.class
+pl/marcin/przymus/spring5recipeapp/Spring5RecipeAppApplicationTests.class
+pl/marcin/przymus/spring5recipeapp/services/RecipeServiceImplTest.class
+pl/marcin/przymus/spring5recipeapp/domain/CategoryTest.class

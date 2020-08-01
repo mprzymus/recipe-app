@@ -1,0 +1,15 @@
+pl/marcin/przymus/spring5recipeapp/domain/Ingredient.class
+pl/marcin/przymus/spring5recipeapp/controllers/IndexController.class
+pl/marcin/przymus/spring5recipeapp/domain/Recipe.class
+pl/marcin/przymus/spring5recipeapp/services/RecipeService.class
+pl/marcin/przymus/spring5recipeapp/repositories/UnitOfMeasureRepository.class
+pl/marcin/przymus/spring5recipeapp/domain/Difficulty.class
+pl/marcin/przymus/spring5recipeapp/domain/Notes.class
+pl/marcin/przymus/spring5recipeapp/controllers/RecipesController.class
+pl/marcin/przymus/spring5recipeapp/services/RecipeServiceImpl.class
+pl/marcin/przymus/spring5recipeapp/repositories/RecipeRepository.class
+pl/marcin/przymus/spring5recipeapp/domain/UnitOfMeasure.class
+pl/marcin/przymus/spring5recipeapp/repositories/CategoryRepository.class
+pl/marcin/przymus/spring5recipeapp/Spring5RecipeAppApplication.class
+pl/marcin/przymus/spring5recipeapp/domain/Category.class
+pl/marcin/przymus/spring5recipeapp/bootstrap/BootStrapData.class
