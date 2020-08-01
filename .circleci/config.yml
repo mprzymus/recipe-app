@@ -2,7 +2,7 @@ version: 2
 jobs:
   maven/test:
     docker:
-      - image: circleci/openjdk:11-browsers-legacy
+      - image: circleci/openjdk:14-browsers-legacy
     steps:
       - checkout
       - run:
