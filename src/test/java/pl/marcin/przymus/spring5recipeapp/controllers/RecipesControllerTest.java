@@ -38,28 +38,33 @@ class RecipesControllerTest {
     }
 
     @Test
-    void testMockMvc() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(tested).build();
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("recipes"));
+    void getRecipeShouldCallTest() {
+        Long id = 1L;
+        var recipe = new Recipe();
+        recipe.setId(id);
+
+        when(recipeService.findById(eq(id))).thenReturn(recipe);
+
+        ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
+
+        tested.showById(id.toString(), model);
+        verify(recipeService, times(1)).findById(eq(id));
+        verify(model, times(1)).addAttribute(eq("recipe"), argumentCaptor.capture());
+        assertEquals(recipe.getId(), argumentCaptor.getValue().getId());
     }
 
     @Test
-    void showRecipes() {
-        var recipes = new HashSet<Recipe>();
-        recipes.add(new Recipe());
-        Recipe recipe = new Recipe();
-        recipe.setId(2L);
-        recipes.add(recipe);
-        when(recipeService.getRecipes()).thenReturn(recipes);
+    void testGetRecipe() throws Exception {
+        Long id = 1L;
+        var recipe = new Recipe();
+        recipe.setId(id);
 
-        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(tested).build();
 
-        assertEquals("recipes", tested.showRecipes(model));
-        verify(recipeService, times(1)).getRecipes();
-        verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
-        var setInController = argumentCaptor.getValue();
-        assertEquals(2, setInController.size());
+        when(recipeService.findById(eq(id))).thenReturn(recipe);
+
+        mockMvc.perform(get("/recipe/show/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/show"));
     }
 }

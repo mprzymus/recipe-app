@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.marcin.przymus.spring5recipeapp.services.RecipeService;
 
@@ -17,10 +18,9 @@ public class RecipesController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping({"", "/", "/index"})
-    public String showRecipes(Model model) {
-        log.debug("Getting recipes page");
-        model.addAttribute("recipes", recipeService.getRecipes());
-        return "recipes";
+    @RequestMapping("/recipe/show/{id}")
+    public String showById(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findById(Long.parseLong(id)));
+        return "recipe/show";
     }
 }
