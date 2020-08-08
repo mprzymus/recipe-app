@@ -39,12 +39,26 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
         Set<Recipe> recipes = new HashSet<>();
         recipes.add(guacamole);
         mexicanCategory.setRecipes(recipes);
+        guacamole.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        guacamole.setSource("Simply Recipes");
         guacamole.setCategories(categories);
         guacamole.setDescription("Perfect Guacamole");
         guacamole.setCookTime(0);
         guacamole.setPrepTime(10);
         guacamole.setDifficulty(Difficulty.EASY);
         guacamole.setServings(3);
+        guacamole.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
+                "\n" +
+                "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
+                "\n" +
+                "3 Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
+                "Add the chopped onion, cilantro, black pepper, and chiles. Chili peppers vary individually in their hotness. So, start with a half of one chili pepper and add to the guacamole to your desired degree of hotness.\n" +
+                "Remember that much of this is done to taste because of the variability in the fresh ingredients. Start with this recipe and adjust to your taste.\n" +
+                "4 Cover with plastic and chill to store: Place plastic wrap on the surface of the guacamole cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n" +
+                "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving.\n" +
+                "\n" +
+                "\n" +
+                "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvpiV9Sd");
         log.debug("Adding note do guacamole");
         Notes notes = new Notes();
         notes.setRecipeNotes("The best guacamole keeps it simple: just ripe avocados, salt, a squeeze of lime, onions, chiles, cilantro, and some chopped tomato. Serve it as a dip at your next party or spoon it on top of tacos for an easy dinner upgrade. ");

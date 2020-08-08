@@ -20,7 +20,7 @@ public class Recipe {
     private String url;
 
     @Lob
-    private String directories;
+    private String directions;
 
     @Lob
     private Byte[] image;
