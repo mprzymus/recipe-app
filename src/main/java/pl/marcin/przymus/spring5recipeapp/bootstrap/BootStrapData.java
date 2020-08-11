@@ -6,7 +6,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marcin.przymus.spring5recipeapp.domain.*;
-import pl.marcin.przymus.spring5recipeapp.repositories.*;
+import pl.marcin.przymus.spring5recipeapp.repositories.CategoryRepository;
+import pl.marcin.przymus.spring5recipeapp.repositories.RecipeRepository;
+import pl.marcin.przymus.spring5recipeapp.repositories.UnitOfMeasureRepository;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
