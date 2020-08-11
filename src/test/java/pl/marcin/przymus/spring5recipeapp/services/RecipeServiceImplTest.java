@@ -2,8 +2,13 @@ package pl.marcin.przymus.spring5recipeapp.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import pl.marcin.przymus.spring5recipeapp.converters.RecipeCommandToRecipe;
+import pl.marcin.przymus.spring5recipeapp.converters.RecipeToRecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.domain.Recipe;
 import pl.marcin.przymus.spring5recipeapp.repositories.RecipeRepository;
 
@@ -11,21 +16,25 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class RecipeServiceImplTest {
 
+    @InjectMocks
     RecipeServiceImpl recipeService;
 
     @Mock
     RecipeRepository recipeRepository;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
-    }
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
 
     @Test
     void getRecipeByIdTest() {
