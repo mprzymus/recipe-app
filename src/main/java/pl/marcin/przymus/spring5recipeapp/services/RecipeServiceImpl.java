@@ -3,13 +3,13 @@ package pl.marcin.przymus.spring5recipeapp.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.marcin.przymus.spring5recipeapp.commands.RecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.converters.RecipeCommandToRecipe;
 import pl.marcin.przymus.spring5recipeapp.converters.RecipeToRecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.domain.Recipe;
 import pl.marcin.przymus.spring5recipeapp.repositories.RecipeRepository;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,8 +18,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
-    private final RecipeCommandToRecipe converter;
-    private final RecipeToRecipeCommand reconverter;
+    private final RecipeCommandToRecipe recipeCommandToRecipeConverter;
+    private final RecipeToRecipeCommand recipeToRecipeCommandConverter;
     @Override
     public Set<Recipe> getRecipes() {
         log.debug("I'm in the service");
@@ -34,16 +34,17 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional
     public RecipeCommand findCommandById(Long id) {
-        return null;
+        return recipeToRecipeCommandConverter.convert(findById(id));
     }
 
     @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand toSave) {
-        Recipe detachedRecipe = converter.convert(toSave);
+        Recipe detachedRecipe = recipeCommandToRecipeConverter.convert(toSave);
         Recipe saved = recipeRepository.save(detachedRecipe);
         log.debug("Saved recipe id: {}", saved.getId());
-        return reconverter.convert(saved);
+        return recipeToRecipeCommandConverter.convert(saved);
     }
 }
