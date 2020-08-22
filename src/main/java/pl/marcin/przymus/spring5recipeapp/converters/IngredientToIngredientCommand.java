@@ -16,9 +16,12 @@ public class IngredientToIngredientCommand implements Converter<Ingredient, Ingr
     @Override
     @Synchronized
     public IngredientCommand convert(Ingredient ingredient) {
-        if (ingredient == null)return null;
+        if (ingredient == null) return null;
         var toReturn = new IngredientCommand();
         toReturn.setId(ingredient.getId());
+        if (ingredient.getRecipe() != null) {
+            toReturn.setRecipeId(ingredient.getRecipe().getId());
+        }
         toReturn.setDescription(ingredient.getDescription());
         toReturn.setAmount(ingredient.getAmount());
         toReturn.setUnitOfMeasure(uomConverter.convert(ingredient.getUnitOfMeasure()));
