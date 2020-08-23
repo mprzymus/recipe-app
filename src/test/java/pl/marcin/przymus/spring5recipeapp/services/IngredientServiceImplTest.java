@@ -2,12 +2,9 @@ package pl.marcin.przymus.spring5recipeapp.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import pl.marcin.przymus.spring5recipeapp.commands.IngredientCommand;
 import pl.marcin.przymus.spring5recipeapp.converters.IngredientCommandToIngredient;
 import pl.marcin.przymus.spring5recipeapp.converters.IngredientToIngredientCommand;
@@ -19,7 +16,6 @@ import pl.marcin.przymus.spring5recipeapp.repositories.RecipeRepository;
 import pl.marcin.przymus.spring5recipeapp.repositories.UnitOfMeasureRepository;
 
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
