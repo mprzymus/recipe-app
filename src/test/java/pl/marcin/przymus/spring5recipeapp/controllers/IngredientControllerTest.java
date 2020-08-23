@@ -77,7 +77,7 @@ class IngredientControllerTest {
         when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
         when(unitOfMeasureService.listAllUnitsOfMeasure()).thenReturn(new HashSet<>());
 
-        mockMvc.perform(get("recipe/1/ingredient/new"))
+        mockMvc.perform(get("/recipe/1/ingredient/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/ingredient/ingredientform"))
                 .andExpect(model().attributeExists("uomList"))
@@ -115,5 +115,14 @@ class IngredientControllerTest {
 
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/3/ingredient/2/show"));
+    }
+
+    @Test
+    void shouldDeleteIngredient() throws Exception {
+        mockMvc.perform(post("/recipe/1/ingredient/2/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients"));
+
+        verify(ingredientService).deleteById(anyLong(), anyLong());
     }
 }
