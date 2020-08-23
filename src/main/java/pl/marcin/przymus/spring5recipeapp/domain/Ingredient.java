@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode(exclude = "recipe")
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Ingredient {
@@ -18,7 +19,7 @@ public class Ingredient {
 
     @ManyToOne
     private Recipe recipe;
-    
+
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure unitOfMeasure;
 
@@ -34,5 +35,4 @@ public class Ingredient {
         this.recipe = recipe;
         this.unitOfMeasure = unitOfMeasure;
     }
-
 }
