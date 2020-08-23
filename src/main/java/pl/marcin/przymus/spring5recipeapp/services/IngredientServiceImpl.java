@@ -83,6 +83,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long recipeId, Long ingredientId) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
         if (recipeOptional.isEmpty()) {
@@ -97,6 +98,7 @@ public class IngredientServiceImpl implements IngredientService {
                 log.error("No ingredient with id: {} for recipe with id: {}", ingredientId, recipeId);
             }
             else {
+                ingredientOptional.get().setRecipe(null);
                 recipe.getIngredients().removeIf(ingredient -> ingredient.getId().equals(ingredientId));
                 recipeRepository.save(recipe);
             }
