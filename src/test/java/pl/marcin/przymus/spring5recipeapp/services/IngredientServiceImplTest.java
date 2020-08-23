@@ -3,6 +3,7 @@ package pl.marcin.przymus.spring5recipeapp.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -85,5 +86,28 @@ class IngredientServiceImplTest {
         assertEquals(ingredientCommand.getId(), result.getId());
         assertEquals(ingredientCommand.getRecipeId(), result.getRecipeId());
         verify(recipeRepository).findById(anyLong());
+    }
+
+    @Test
+    void shouldDeleteById() {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Ingredient ingredient1 = new Ingredient();
+        ingredient1.setId(1L);
+        Ingredient ingredient2 = new Ingredient();
+        ingredient2.setId(2L);
+        recipe.addIngredient(ingredient1);
+        recipe.addIngredient(ingredient2);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
+
+        tested.deleteById(1L, 2L);
+        ArgumentCaptor<Recipe> savedCaptor = ArgumentCaptor.forClass(Recipe.class);
+        verify(recipeRepository).save(savedCaptor.capture());
+
+        Recipe result = savedCaptor.getValue();
+        assertEquals(1, result.getIngredients().size());
+        assertTrue(result.getIngredients().contains(ingredient1));
+        assertFalse(result.getIngredients().contains(ingredient2));
     }
 }
