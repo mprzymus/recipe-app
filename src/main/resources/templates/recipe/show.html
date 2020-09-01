@@ -24,21 +24,34 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                            </div>
+
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categories:</h5>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <ul>
                                     <li th:each="category : ${recipe.categories}"
                                         th:text="${category.description}"></li>
-                                    <li th:remove="all"> cat one</li>
-                                    <li th:remove="all">cat two</li>
-                                    <li th:remove="all">cat three</li>
                                 </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="../../static/images/guacamole400x400.jpg"
+                                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                     width="200" height="200"
+                                >
                             </div>
                         </div>
                         <div class="row">
@@ -80,7 +93,7 @@
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p><a href="#" th:href="${recipe.url}" >View Original</a></p>
+                                <p><a href="#" th:href="${recipe.url}">View Original</a></p>
                             </div>
                         </div>
                     </div>
@@ -92,7 +105,8 @@
                                 <h1 class="panel-title">Ingredients</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                             </div>
                         </div>
                     </div>

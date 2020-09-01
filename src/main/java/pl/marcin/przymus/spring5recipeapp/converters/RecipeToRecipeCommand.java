@@ -45,6 +45,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
             toReturn.setCategories(categories);
         }
         toReturn.setDifficulty(recipe.getDifficulty());
+        toReturn.setImage(recipe.getImage());
         return toReturn;
     }
 }
