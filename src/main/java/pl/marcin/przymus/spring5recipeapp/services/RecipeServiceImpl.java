@@ -8,6 +8,7 @@ import pl.marcin.przymus.spring5recipeapp.commands.RecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.converters.RecipeCommandToRecipe;
 import pl.marcin.przymus.spring5recipeapp.converters.RecipeToRecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.domain.Recipe;
+import pl.marcin.przymus.spring5recipeapp.exceptions.NotFoundException;
 import pl.marcin.przymus.spring5recipeapp.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-        return recipeRepository.findById(id).orElseThrow(RuntimeException::new);
+        return recipeRepository.findById(id).orElseThrow(() -> new NotFoundException("No recipe with id " + id));
     }
 
     @Override

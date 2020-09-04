@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import pl.marcin.przymus.spring5recipeapp.commands.RecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.domain.Recipe;
+import pl.marcin.przymus.spring5recipeapp.exceptions.NotFoundException;
 import pl.marcin.przymus.spring5recipeapp.services.RecipeService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,6 +67,17 @@ class RecipesControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenNotFoundRecipe() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
