@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import pl.marcin.przymus.spring5recipeapp.commands.RecipeCommand;
 import pl.marcin.przymus.spring5recipeapp.domain.Recipe;
-import pl.marcin.przymus.spring5recipeapp.exceptions.NotFoundException;
 import pl.marcin.przymus.spring5recipeapp.services.RecipeService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -90,6 +89,7 @@ class RecipesControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("description", "some string")
+                .param("directions", "some directions")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/show"));
