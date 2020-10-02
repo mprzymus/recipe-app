@@ -20,8 +20,6 @@ jobs:
           paths:
             - ~/.m2
           key: maven-{‌{ checksum "/tmp/maven_cache_seed" }}
-
-      - run: mvn integration-test cobertura:cobertura
       - store_test_results:
           path: target/surefire-reports
 workflows:
