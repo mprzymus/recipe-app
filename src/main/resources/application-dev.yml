@@ -3,7 +3,8 @@ spring:
     url: jdbc:mysql://localhost:3306/dev
     username: dev_user
     password: pass
-    initialization-mode: always
+    platform: mysql
+    #initialization-mode: always
   jpa:
     hibernate:
       ddl-auto: validate
